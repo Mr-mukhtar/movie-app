@@ -35,7 +35,8 @@ function App() {
         <button onClick={fetchMovieHandler}>Fetch Movies</button>
       </section>
       <section>
-        {isLoading && <p>Loading...</p>}
+        {isLoading && movies.length >0  && <p>Loading...</p>}
+        {isLoading && movies.length ===0 && <p>No movie found.</p> }
         {!isLoading && <MoviesList movies={movies} />}
       </section>
     </React.Fragment>
