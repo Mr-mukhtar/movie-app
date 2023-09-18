@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import MoviesList from './components/MoviesList';
+import MovieForm from './components/MovieForm';
 import './App.css';
 
 function App() {
   const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // Set loading to true initially
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const handleFormSubmit = (newMovie) => {
+    setMovies((prevMovies) => [...prevMovies, newMovie]);
+  };
 
   const fetchMovies = useCallback(async () => {
     setIsLoading(true);
@@ -33,12 +37,13 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetchMovies(); // Fetch movies on component mount
+    fetchMovies();
   }, [fetchMovies]);
 
   return (
     <React.Fragment>
       <section>
+      <MovieForm onFormSubmit={handleFormSubmit} /> {/* Pass the callback */}
         <button onClick={fetchMovies}>Fetch Movies</button>
       </section>
       <section>
